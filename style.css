@@ -1,0 +1,272 @@
+/* --- BIẾN MÀU SẮC & THIẾT LẬP CƠ BẢN --- */
+:root {
+    --bg-dark: #0f172a;
+    --bg-card: #1e293b;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent-1: #8b5cf6;
+    --accent-2: #ec4899;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    overflow-x: hidden;
+}
+
+/* --- THANH MENU KÍNH MỜ --- */
+.glass-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 4%;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.gradient-text {
+    background: linear-gradient(to right, var(--accent-1), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 5px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-links li {
+    padding: 8px 25px;
+    border-radius: 40px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: all 0.3s ease;
+}
+
+.nav-links li:hover, .nav-links li.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
+}
+
+/* --- NÚT VIP TRÊN MENU --- */
+.btn-vip-nav {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: #111;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 30px;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-vip-nav:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+    color: #000;
+}
+
+/* --- KHU VỰC CHÍNH (NỘI DUNG) --- */
+main {
+    max-width: 96%; 
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.section-header p {
+    color: var(--text-muted);
+}
+
+.count-text {
+    font-weight: 600;
+    margin-top: 5px;
+    color: var(--accent-1);
+}
+
+/* --- LƯỚI 4 Ô MỖI HÀNG --- */
+.resource-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 cột đều nhau */
+    gap: 25px;
+}
+
+.resource-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.resource-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(139, 92, 246, 0.5);
+}
+
+.card-image {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 240px;
+}
+
+/* --- CSS BẢO VỆ ẢNH (CHỐNG KÉO & BÔI ĐEN) --- */
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    
+    pointer-events: auto;
+    -webkit-user-drag: none; 
+    -khtml-user-drag: none; 
+    -moz-user-drag: none;    
+    -o-user-drag: none;
+    user-drag: none;         
+    -webkit-user-select: none; 
+    user-select: none;         
+}
+
+.resource-card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+/* --- NHÃN VIP --- */
+.badge.vip-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: linear-gradient(45deg, #FFD700, #FFA500); 
+    color: #000;
+    font-weight: 800;
+    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);
+    border: 1px solid #FFF8DC;
+    padding: 5px 14px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+}
+
+.card-info h3 {
+    margin: 20px 0 15px 0;
+    font-size: 1.15rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.btn-download, .btn-folder {
+    text-align: center;
+    padding: 11px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.btn-download {
+    background: rgba(139, 92, 246, 0.2);
+    color: #a78bfa;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.btn-download:hover {
+    background: var(--accent-1);
+    color: white;
+}
+
+.btn-folder {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-folder:hover { background: rgba(255, 255, 255, 0.15); }
+
+/* --- HỆ THỐNG TAB & POPUP MODAL --- */
+.tab-content { animation: fadeIn 0.4s ease-in-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    z-index: 9999; display: flex; justify-content: center; align-items: center;
+    opacity: 0; visibility: hidden; transition: all 0.3s ease;
+}
+
+.modal-overlay.show { opacity: 1; visibility: visible; }
+
+.modal-content {
+    background: var(--bg-card); width: 92%; max-width: 750px; border-radius: 20px;
+    padding: 25px; position: relative; border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+    transform: translateY(20px); transition: transform 0.3s ease;
+}
+
+.modal-overlay.show .modal-content { transform: translateY(0); }
+
+.close-modal {
+    position: absolute; top: 15px; right: 20px; background: none; border: none;
+    color: var(--text-muted); font-size: 2.2rem; cursor: pointer; transition: color 0.3s;
+}
+
+.close-modal:hover { color: var(--accent-2); }
+.modal-title { text-align: center; margin-bottom: 20px; font-size: 1.6rem; }
+.iframe-container { border-radius: 12px; overflow: hidden; background: white; }
+
+/* =========================================
+   RESPONSIVE (ĐẢM BẢO GIAO DIỆN ĐẸP TRÊN ĐIỆN THOẠI/IPAD) 
+   ========================================= */
+@media (max-width: 1100px) {
+    .resource-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 850px) {
+    .resource-grid { grid-template-columns: repeat(2, 1fr); }
+    .glass-nav { flex-wrap: wrap; justify-content: center; gap: 15px; }
+}
+@media (max-width: 500px) {
+    .resource-grid { grid-template-columns: 1fr; }
+    .action-buttons { grid-template-columns: 1fr; }
+    .nav-links { width: 100%; justify-content: center; }
+}

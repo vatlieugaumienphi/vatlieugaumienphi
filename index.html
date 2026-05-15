@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Assets Library</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Menu Kính Mờ -->
+    <nav class="glass-nav">
+        <div class="logo">
+            <span class="gradient-text">Studio</span>Assets
+        </div>
+        
+        <ul class="nav-links">
+            <li class="tab-btn active" onclick="openTab(event, 'nhan-vat')">Nhân Vật</li>
+            <li class="tab-btn" onclick="openTab(event, 'bieu-cam')">Biểu Cảm</li>
+        </ul>
+
+        <!-- Nút VIP nổi bật trên thanh Menu -->
+        <button class="btn-vip-nav" onclick="openModal()">👑 Nhận Đặc Quyền VIP</button>
+    </nav>
+
+    <main>
+        <!-- TAB NHÂN VẬT (Mặc định hiển thị đầu tiên) -->
+        <section id="nhan-vat" class="tab-content active" style="display: block;">
+            <div class="section-header">
+                <h2>Bộ sưu tập Nhân Vật</h2>
+                <p>Mô hình 2D/3D sắc nét dành cho game và animation.</p>
+                <p class="count-text">Đang hiển thị: <span id="count-nv">0</span> tài nguyên</p>
+            </div>
+            
+            <div id="grid-nhan-vat" class="resource-grid">
+                <!-- JavaScript sẽ tự động điền các ô chứa ảnh vào đây -->
+            </div>
+        </section>
+
+        <!-- TAB BIỂU CẢM (Mặc định ẩn) -->
+        <section id="bieu-cam" class="tab-content" style="display: none;">
+            <div class="section-header">
+                <h2>Gói Biểu Cảm (Emotes)</h2>
+                <p>Các gói biểu cảm độc quyền dành cho streamer và sáng tạo nội dung.</p>
+                <p class="count-text">Đang hiển thị: <span id="count-bc">0</span> tài nguyên</p>
+            </div>
+
+            <div id="grid-bieu-cam" class="resource-grid">
+                <!-- JavaScript sẽ tự động điền các ô chứa ảnh vào đây -->
+            </div>
+        </section>
+    </main>
+
+    <!-- POPUP GOOGLE FORM (Ẩn hiện khi bấm nút) -->
+    <div id="vipModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <h3 class="modal-title">Xác Nhận Quyền VIP</h3>
+            <div class="iframe-container">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSesji2mT_c7w8E49o8Pl1ho7kOEosdIV_IX2t5sothJ27SzCw/viewform?embedded=true" width="100%" height="550" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
