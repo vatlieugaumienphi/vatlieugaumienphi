@@ -1,57 +1,126 @@
 // =========================================================================
-// 1. CẤU HÌNH LINK ẢNH TỪ GITHUB (Thay bằng link kho ảnh của bạn)
+// 1. CẤU HÌNH CƠ BẢN
 // =========================================================================
-const GITHUB_CDN = "https://cdn.jsdelivr.net/gh/nguyenvana/kho-tai-nguyen@main/images/";
+const GITHUB_BASE = "https://cdn.jsdelivr.net/gh/vatlieugaumienphi/vatlieugaumienphi@main/images/";
+
+// 🔴 DÁN LINK GOOGLE SHEET (ĐỊNH DẠNG CSV) VÀO ĐÂY:
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1p8sDX7-HX9fporKf4JJr9js-BBn4JwuNzeqGLtq56A4/export?format=csv&gid=0"; 
+
+const ITEMS_PER_PAGE = 20; 
+
+// 👑 NÚT GẠT VIP TỔNG: 
+// - Đổi thành 'true' nếu muốn TẤT CẢ mọi Tab đều là VIP. 
+// - Để 'false' nếu muốn tùy chỉnh từng Tab bên dưới.
+const MAKE_ALL_VIP = false; 
 
 // =========================================================================
-// 2. KHO DỮ LIỆU TẬP TRUNG (20 Ơ MẶC ĐỊNH)
+// 2. HÀM TỰ ĐỘNG TẠO DỮ LIỆU (ĐÃ CẬP NHẬT LOGIC VIP TỪNG TAB)
 // =========================================================================
-const resourceData = [
-    // --- 10 Ô TAB NHÂN VẬT (Ký hiệu: nv) ---
-    { id: 1, type: 'nv', title: "Nhân Vật Anime Độc Quyền Vol 1", img: GITHUB_CDN + "nv-1.jpg", linkDown: "#", linkFolder: "#", isVip: true },
-    { id: 2, type: 'nv', title: "Chiến Binh Fantasy Cơ Bản", img: GITHUB_CDN + "nv-2.jpg", linkDown: "#", linkFolder: "#", isVip: false },
-    { id: 3, type: 'nv', title: "Set NPC Đường Phố Chuyên Sâu", img: GITHUB_CDN + "nv-3.jpg", linkDown: "#", linkFolder: "#", isVip: true },
-    { id: 4, type: 'nv', title: "Quái Vật Khổng Lồ RPG Pack", img: GITHUB_CDN + "nv-4.jpg", linkDown: "#", linkFolder: "#", isVip: false },
-    { id: 5, type: 'nv', title: "Hiệp Sĩ Trung Cổ Bản Premium", img: GITHUB_CDN + "nv-5.jpg", linkDown: "#", linkFolder: "#", isVip: true },
-    { id: 6, type: 'nv', title: "Robot Cơ Khí Sci-Fi Chibi", img: GITHUB_CDN + "nv-6.jpg", linkDown: "#", linkFolder: "#", isVip: false },
-    { id: 7, type: 'nv', title: "Pháp Sư Tối Thượng 3D Model", img: GITHUB_CDN + "nv-7.jpg", linkDown: "#", linkFolder: "#", isVip: true },
-    { id: 8, type: 'nv', title: "Sát Thủ Bóng Đêm Ninja Pack", img: GITHUB_CDN + "nv-8.jpg", linkDown: "#", linkFolder: "#", isVip: false },
-    { id: 9, type: 'nv', title: "Thợ Săn Tiền Thưởng Cyberpunk", img: GITHUB_CDN + "nv-9.jpg", linkDown: "#", linkFolder: "#", isVip: true },
-    { id: 10, type: 'nv', title: "Thần Thoại Hy Lạp Asset Bundle", img: GITHUB_CDN + "nv-10.jpg", linkDown: "#", linkFolder: "#", isVip: false },
+function autoGen(type, folderName, filePrefix, ext, count, folderUrl, vipList = []) {
+    let items = [];
+    for (let i = 1; i <= count; i++) {
+        let isItemVip = false;
+        if (MAKE_ALL_VIP === true || vipList === true) {
+            isItemVip = true;
+        } else if (Array.isArray(vipList) && vipList.includes(i)) {
+            isItemVip = true;
+        }
+
+        items.push({
+            id: `${type}-${i}`,
+            type: type,                   
+            title: `${filePrefix}${i}`,
+            img: `${GITHUB_BASE}${folderName}/${filePrefix}${i}${ext}`, 
+            linkDown: "#", 
+            linkFolder: folderUrl,              
+            isVip: isItemVip
+        });
+    }
+    return items;
+}
+
+// 🌟 THIẾT LẬP KHO DỮ LIỆU
+let resourceData = [
+    // Cách 1: Gạt VIP cho CẢ TAB bằng cách điền chữ true ở cuối
+    ...autoGen('nv', 'nhanvat', 'nhan vat ', '.png', 45, 'https://drive.google.com/drive/folders/1-l0dT9gH_P9oqHBBjJbo-fCaeLfCUKlP?usp=sharing', []),
     
-    // --- 10 Ô TAB BIỂU CẢM (Ký hiệu: bc) ---
-    { id: 11, type: 'bc', title: "Gói Biểu Cảm Streamer Hài Hước", img: GITHUB_CDN + "bc-1.png", linkDown: "#", linkFolder: "#", isVip: false },
-    { id: 12, type: 'bc', title: "Emote Khóc Nhè Đáng Yêu VIP", img: GITHUB_CDN + "bc-2.png", linkDown: "#", linkFolder: "#", isVip: true },
-    { id: 13, type: 'bc', title: "Set Biểu Cảm Chibi Discord", img: GITHUB_CDN + "bc-3.png", linkDown: "#", linkFolder: "#", isVip: false },
-    { id: 14, type: 'bc', title: "Gói Biểu Cảm Giận Dữ Neon", img: GITHUB_CDN + "bc-4.png", linkDown: "#", linkFolder: "#", isVip: true },
-    { id: 15, type: 'bc', title: "Animated Emotes For Twitch", img: GITHUB_CDN + "bc-5.png", linkDown: "#", linkFolder: "#", isVip: false },
-    { id: 16, type: 'bc', title: "Kính Mắt ThugLife Meme Pack", img: GITHUB_CDN + "bc-6.png", linkDown: "#", linkFolder: "#", isVip: true },
-    { id: 17, type: 'bc', title: "Biểu Cảm Game Thủ Pro Gamer", img: GITHUB_CDN + "bc-7.png", linkDown: "#", linkFolder: "#", isVip: false },
-    { id: 18, type: 'bc', title: "Gói Sticker Cute Động Vật", img: GITHUB_CDN + "bc-8.png", linkDown: "#", linkFolder: "#", isVip: false },
-    { id: 19, type: 'bc', title: "Halloween Special Emotes", img: GITHUB_CDN + "bc-9.png", linkDown: "#", linkFolder: "#", isVip: true },
-    { id: 20, type: 'bc', title: "Pixel Art Emote Cổ Điển", img: GITHUB_CDN + "bc-10.png", linkDown: "#", linkFolder: "#", isVip: false }
+    // Cách 2: Chỉ VIP vài cái cụ thể (ví dụ ảnh 1, 3, 5) bằng cách dùng mảng []
+    ...autoGen('bc', 'bieucam', 'bieu cam ', '.png', 30, 'LINK_DRIVE_FOLDER_BC', [1, 3, 5]),
+
+    // Cách 3: Không có cái nào VIP (trừ khi MAKE_ALL_VIP bên trên là true)
+    ...autoGen('hu', 'hieuung', 'Ảnh hiệu ứng ', '.png', 25, 'LINK_DRIVE_FOLDER_HU', true),
 ];
 
-const DISPLAY_LIMIT = 20; 
+let currentPages = { 'nv': 1, 'bc': 1, 'hu': 1 };
 
 // =========================================================================
-// 3. HÀM TỰ ĐỘNG TẠO Ô & BẢO VỆ ẢNH CHỐNG COPY
+// 3. XỬ LÝ GOOGLE SHEET & LINK TẢI TRỰC TIẾP
 // =========================================================================
-function renderResources() {
-    const gridNV = document.getElementById('grid-nhan-vat');
-    const gridBC = document.getElementById('grid-bieu-cam');
-    
-    gridNV.innerHTML = '';
-    gridBC.innerHTML = '';
-    
-    let countNV = 0;
-    let countBC = 0;
 
-    resourceData.slice(0, DISPLAY_LIMIT).forEach(item => {
-        const cardHTML = `
+function makeDirectDriveLink(url) {
+    if (!url) return "#";
+    const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    if (match && match[1]) {
+        return `https://drive.google.com/uc?export=download&id=${match[1]}`;
+    }
+    return url; 
+}
+
+async function fetchSheetDataAndRender() {
+    if (SHEET_CSV_URL && SHEET_CSV_URL.startsWith("http")) {
+        try {
+            const response = await fetch(SHEET_CSV_URL);
+            const csvText = await response.text();
+            const rows = csvText.split('\n').map(row => row.split(','));
+            
+            if (rows.length > 0) {
+                const headers = rows[0].map(header => header.trim().toLowerCase());
+                let colMap = {};
+                headers.forEach((header, index) => { colMap[header] = index; });
+
+                resourceData = resourceData.map(item => {
+                    let type = item.type;
+                    let rowNumber = parseInt(item.id.split('-')[1]);
+                    let colIndex = colMap[type];
+                    if (colIndex !== undefined && rows[rowNumber]) {
+                        let linkFromSheet = rows[rowNumber][colIndex];
+                        if (linkFromSheet && linkFromSheet.trim() !== "") {
+                            item.linkDown = makeDirectDriveLink(linkFromSheet.trim());
+                        }
+                    }
+                    return item;
+                });
+            }
+        } catch (error) {
+            console.error("Lỗi Google Sheet:", error);
+        }
+    }
+    initAllTabs();
+}
+
+// =========================================================================
+// 4. HIỂN THỊ & PHÂN TRANG
+// =========================================================================
+function renderTab(type, gridId, paginationId, countId) {
+    const grid = document.getElementById(gridId);
+    const pagination = document.getElementById(paginationId);
+    const countSpan = document.getElementById(countId);
+    
+    const filteredData = resourceData.filter(item => item.type === type);
+    const totalItems = filteredData.length;
+    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+    
+    if(countSpan) countSpan.innerText = totalItems;
+    if (currentPages[type] > totalPages) currentPages[type] = totalPages;
+
+    const startIndex = (currentPages[type] - 1) * ITEMS_PER_PAGE;
+    const pageData = filteredData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+    grid.innerHTML = '';
+    pageData.forEach(item => {
+        grid.innerHTML += `
             <div class="resource-card">
                 <div class="card-image">
-                    <!-- draggable="false" và oncontextmenu="return false;" chặn thao tác chuột trên ảnh -->
                     <img src="${item.img}" alt="${item.title}" draggable="false" oncontextmenu="return false;">
                     ${item.isVip ? '<div class="badge vip-badge">👑 VIP</div>' : ''}
                 </div>
@@ -64,56 +133,45 @@ function renderResources() {
                 </div>
             </div>
         `;
-
-        if (item.type === 'nv') {
-            gridNV.innerHTML += cardHTML;
-            countNV++;
-        } else if (item.type === 'bc') {
-            gridBC.innerHTML += cardHTML;
-            countBC++;
-        }
     });
 
-    document.getElementById('count-nv').innerText = countNV;
-    document.getElementById('count-bc').innerText = countBC;
+    pagination.innerHTML = '';
+    if (totalPages > 1) {
+        for (let i = 1; i <= totalPages; i++) {
+            const btn = document.createElement('button');
+            btn.innerText = i;
+            btn.className = `page-btn ${currentPages[type] === i ? 'active' : ''}`;
+            btn.onclick = () => {
+                currentPages[type] = i; 
+                renderTab(type, gridId, paginationId, countId);
+                window.scrollTo(0,0); 
+            };
+            pagination.appendChild(btn);
+        }
+    }
 }
 
-// Chạy hàm khi trang tải xong
-document.addEventListener('DOMContentLoaded', renderResources);
+function initAllTabs() {
+    renderTab('nv', 'grid-nhan-vat', 'pagination-nhan-vat', 'count-nv');
+    renderTab('bc', 'grid-bieu-cam', 'pagination-bieu-cam', 'count-bc');
+    renderTab('hu', 'grid-hieu-ung', 'pagination-hieu-ung', 'count-hu');
+}
+
+document.addEventListener('DOMContentLoaded', fetchSheetDataAndRender);
 
 // =========================================================================
-// 4. HỆ THỐNG CHUYỂN ĐỔI TAB & GOOGLE FORM
+// 5. HỆ THỐNG MENU & MODAL
 // =========================================================================
 function openTab(evt, tabName) {
     let tabContents = document.getElementsByClassName("tab-content");
-    for (let i = 0; i < tabContents.length; i++) {
-        tabContents[i].style.display = "none";
-        tabContents[i].classList.remove("active");
-    }
-
+    for (let i = 0; i < tabContents.length; i++) { tabContents[i].style.display = "none"; }
     let tabBtns = document.getElementsByClassName("tab-btn");
-    for (let i = 0; i < tabBtns.length; i++) {
-        tabBtns[i].classList.remove("active");
-    }
-
+    for (let i = 0; i < tabBtns.length; i++) { tabBtns[i].classList.remove("active"); }
     document.getElementById(tabName).style.display = "block";
-    document.getElementById(tabName).classList.add("active");
     evt.currentTarget.classList.add("active");
 }
 
 const modal = document.getElementById("vipModal");
-function openModal() {
-    modal.classList.add("show");
-    document.body.style.overflow = "hidden"; // Khóa cuộn trang nền
-}
-
-function closeModal() {
-    modal.classList.remove("show");
-    document.body.style.overflow = "auto"; // Mở lại cuộn trang nền
-}
-
-window.onclick = function(event) {
-    if (event.target == modal) {
-        closeModal();
-    }
-}
+function openModal() { modal.classList.add("show"); document.body.style.overflow = "hidden"; }
+function closeModal() { modal.classList.remove("show"); document.body.style.overflow = "auto"; }
+window.onclick = function(e) { if (e.target == modal) closeModal(); }
