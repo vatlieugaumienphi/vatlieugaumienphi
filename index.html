@@ -3,56 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Assets Library</title>
+    
+    <meta name="google-site-verification" content="6NzVKyVAfV6fOcqZTXXvsfWFarGadl_wVVGyD79u0Gg" />
+    
+    <title>Vật Liệu Gấu Free - Kho Tài Nguyên Animation & File .FLA</title>
+    <meta name="description" content="Vật Liệu Gấu Free cung cấp kho tài nguyên file .FLA cho AN animation, bao gồm nhân vật, biểu cảm và hiệu ứng kỹ năng hoàn toàn miễn phí.">
+    <meta name="keywords" content="vatlieugaumienphi, vật liệu gấu free, file fla, nhân vật animation, biểu cảm, hiệu ứng kỹ năng, tài nguyên 2d miễn phí">
+    
+    <meta property="og:title" content="Vật Liệu Gấu Free - Kho Tài Nguyên Animation">
+    <meta property="og:description" content="Tải xuống hàng trăm file .FLA, nhân vật, biểu cảm và hiệu ứng hoàn toàn miễn phí.">
+    <meta property="og:type" content="website">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* CSS Bổ sung cho Phân trang và Chân trang */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+        }
+        .page-btn {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            color: #333;
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .page-btn:hover {
+            background-color: #f0f0f0;
+        }
+        .page-btn.active {
+            background-color: #007bff; /* Thay đổi màu này theo theme của bạn */
+            color: #fff;
+            border-color: #007bff;
+        }
+        
+        /* Chân trang (Footer) */
+        footer {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Menu Kính Mờ -->
     <nav class="glass-nav">
         <div class="logo">
-            <span class="gradient-text">Studio</span>Assets
+            <span class="gradient-text">VATLIEUGAU</span>FREE
         </div>
         
         <ul class="nav-links">
             <li class="tab-btn active" onclick="openTab(event, 'nhan-vat')">Nhân Vật</li>
             <li class="tab-btn" onclick="openTab(event, 'bieu-cam')">Biểu Cảm</li>
+            <li class="tab-btn" onclick="openTab(event, 'hieu-ung')">Hiệu Ứng</li>
         </ul>
 
-        <!-- Nút VIP nổi bật trên thanh Menu -->
-        <button class="btn-vip-nav" onclick="openModal()">👑 Nhận Đặc Quyền VIP</button>
+        <button class="btn-vip-nav" onclick="openModal()">👑 Nhận VIP FREE</button>
     </nav>
 
     <main>
-        <!-- TAB NHÂN VẬT (Mặc định hiển thị đầu tiên) -->
         <section id="nhan-vat" class="tab-content active" style="display: block;">
             <div class="section-header">
                 <h2>Bộ sưu tập Nhân Vật</h2>
-                <p>Mô hình 2D/3D sắc nét dành cho game và animation.</p>
-                <p class="count-text">Đang hiển thị: <span id="count-nv">0</span> tài nguyên</p>
+                <p>File .FLA dành cho AN animation.</p>
+                <p class="count-text">Tổng cộng: <span id="count-nv">0</span> tài nguyên</p>
             </div>
-            
-            <div id="grid-nhan-vat" class="resource-grid">
-                <!-- JavaScript sẽ tự động điền các ô chứa ảnh vào đây -->
-            </div>
+            <div id="grid-nhan-vat" class="resource-grid"></div>
+            <div id="pagination-nhan-vat" class="pagination"></div>
         </section>
 
-        <!-- TAB BIỂU CẢM (Mặc định ẩn) -->
         <section id="bieu-cam" class="tab-content" style="display: none;">
             <div class="section-header">
-                <h2>Gói Biểu Cảm (Emotes)</h2>
-                <p>Các gói biểu cảm độc quyền dành cho streamer và sáng tạo nội dung.</p>
-                <p class="count-text">Đang hiển thị: <span id="count-bc">0</span> tài nguyên</p>
+                <h2>Biểu Cảm</h2>
+                <p>Biểu cảm dành cho nhân vật.</p>
+                <p class="count-text">Tổng cộng: <span id="count-bc">0</span> tài nguyên</p>
             </div>
+            <div id="grid-bieu-cam" class="resource-grid"></div>
+            <div id="pagination-bieu-cam" class="pagination"></div>
+        </section>
 
-            <div id="grid-bieu-cam" class="resource-grid">
-                <!-- JavaScript sẽ tự động điền các ô chứa ảnh vào đây -->
+        <section id="hieu-ung" class="tab-content" style="display: none;">
+            <div class="section-header">
+                <h2>Bộ sưu tập Hiệu Ứng</h2>
+                <p>Các hiệu ứng kỹ năng.</p>
+                <p class="count-text">Tổng cộng: <span id="count-hu">0</span> tài nguyên</p>
             </div>
+            <div id="grid-hieu-ung" class="resource-grid"></div>
+            <div id="pagination-hieu-ung" class="pagination"></div>
         </section>
     </main>
 
-    <!-- POPUP GOOGLE FORM (Ẩn hiện khi bấm nút) -->
+    <footer>
+        <p>&copy; 2026 VATLIEUGAU FREE. Tuyên bố từ chối trách nhiệm.</p>
+    </footer>
+
     <div id="vipModal" class="modal-overlay">
         <div class="modal-content">
             <button class="close-modal" onclick="closeModal()">&times;</button>
